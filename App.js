@@ -1,20 +1,49 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import { NavigationContainer } from "@react-navigation/native";
+import { PaperProvider } from "react-native-paper";
+import DetailsScreen from "./screens/Details";
+import { StatusBar } from "react-native";
+import ListScreen from "./screens/List";
+import HomeScreen from "./screens/Home";
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
+  StatusBar.setBarStyle("light-content", true);
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <SafeAreaProvider>
+      <NavigationContainer>
+        <PaperProvider>
+          <Stack.Navigator>
+            <Stack.Screen
+              name="Home"
+              component={HomeScreen}
+              options={{
+                title: "Home",
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name="List"
+              component={ListScreen}
+              options={{
+                title: "List",
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name="Details"
+              component={DetailsScreen}
+              options={{
+                title: `Team member info`,
+                headerShown: false,
+              }}
+            />
+          </Stack.Navigator>
+        </PaperProvider>
+      </NavigationContainer>
+    </SafeAreaProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
