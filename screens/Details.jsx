@@ -3,7 +3,8 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { Image } from "expo-image";
 
 export default function Details({ route, navigation }) {
-  const { name, role, email, location, phone, image } = route.params;
+  const { name, role, email, location, phone, image, description, company } =
+    route.params;
 
   return (
     <SafeAreaView style={styles.container}>
@@ -41,6 +42,15 @@ export default function Details({ route, navigation }) {
         </View>
         <View style={styles.contentContainer}>
           <ScrollView>
+            <View>
+              <Text style={styles.userInfo}>Description:</Text>
+              <Text style={styles.contactInfoPosition}>{description}</Text>
+            </View>
+            <View>
+              <Text style={styles.userInfo}>Company:</Text>
+              <Text style={styles.contactInfoPosition}>{company}</Text>
+            </View>
+
             <View>
               <Text style={styles.userInfo}>Email:</Text>
               <Text style={styles.contactInfoPosition}>{email}</Text>
@@ -170,10 +180,11 @@ const styles = StyleSheet.create({
 
   contentContainer: {
     borderRadius: 25,
-    backgroundColor: "#282a68",
+    backgroundColor: "#26273F",
     width: "85%",
+    height: "45%",
     paddingHorizontal: 10,
-    paddingTop: 45,
+    paddingTop: 25,
     paddingBottom: 25,
     alignItems: "center",
     alignSelf: "center",

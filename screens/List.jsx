@@ -1,6 +1,8 @@
 import { Text, Pressable, View, FlatList, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { Faker, base, en, en_CA, fr_CA } from "@faker-js/faker";
 import { useState, useEffect } from "react";
+
 import { Image } from "expo-image";
 
 export default function ListScreen({ route, navigation }) {
@@ -14,161 +16,56 @@ export default function ListScreen({ route, navigation }) {
   useEffect(() => {
     setResultsCount(17);
 
-    const listData = [
-      <ListCard
-        name="Aubrey Jean-Baptiste"
-        role="Software Engineer"
-        email="aubreyjb@example.com"
-        location="Radisson, Newfoundland and Labrador"
-        phone="(709)-555-0115"
-        image={require(`../assets/users/user-1.jpg`)}
-        viewDetails={viewDetails}
-      />,
-      <ListCard
-        name="Emma Leblanc"
-        role="Product Manager"
-        email="emmaleb@example.com"
-        location="Toronto, Ontario"
-        phone="(416)-555-0215"
-        image={require("../assets/users/user-2.jpg")}
-        viewDetails={viewDetails}
-      />,
-      <ListCard
-        name="Oliver Smith"
-        role="Data Scientist"
-        email="olivers@example.com"
-        location="Vancouver, British Columbia"
-        phone="(604)-555-0341"
-        image={require("../assets/users/user-3.jpg")}
-        viewDetails={viewDetails}
-      />,
-      <ListCard
-        name="Ava Tremblay"
-        role="UX Designer"
-        email="avatr@example.com"
-        location="Montreal, Quebec"
-        phone="(514)-555-0923"
-        image={require("../assets/users/user-4.jpg")}
-        viewDetails={viewDetails}
-      />,
-      <ListCard
-        name="Sophia Roy"
-        role="DevOps Engineer"
-        email="sophiar@example.com"
-        location="Calgary, Alberta"
-        phone="(403)-555-0651"
-        image={require("../assets/users/user-5.jpg")}
-        viewDetails={viewDetails}
-      />,
-      <ListCard
-        name="Liam Gagnon"
-        role="Backend Developer"
-        email="liamg@example.com"
-        location="Ottawa, Ontario"
-        phone="(613)-555-0789"
-        image={require("../assets/users/user-6.jpg")}
-        viewDetails={viewDetails}
-      />,
-      <ListCard
-        name="Isabella Martin"
-        role="Frontend Developer"
-        email="isabellam@example.com"
-        location="Edmonton, Alberta"
-        phone="(780)-555-0981"
-        image={require("../assets/users/user-7.jpg")}
-        viewDetails={viewDetails}
-      />,
-      <ListCard
-        name="Lucas Pelletier"
-        role="QA Engineer"
-        email="lucasp@example.com"
-        location="Winnipeg, Manitoba"
-        phone="(204)-555-0452"
-        image={require("../assets/users/user-8.jpg")}
-        viewDetails={viewDetails}
-      />,
-      <ListCard
-        name="Mia Dubois"
-        role="Technical Writer"
-        email="miad@example.com"
-        location="Quebec City, Quebec"
-        phone="(418)-555-0123"
-        image={require("../assets/users/user-9.jpg")}
-        viewDetails={viewDetails}
-      />,
-      <ListCard
-        name="Henry Fortin"
-        role="Security Analyst"
-        email="henryf@example.com"
-        location="Halifax, Nova Scotia"
-        phone="(902)-555-0291"
-        image={require("../assets/users/user-10.jpg")}
-        viewDetails={viewDetails}
-      />,
-      <ListCard
-        name="Charlotte Desjardins"
-        role="Database Administrator"
-        email="charlotted@example.com"
-        location="Saskatoon, Saskatchewan"
-        phone="(306)-555-0987"
-        image={require("../assets/users/user-11.jpg")}
-        viewDetails={viewDetails}
-      />,
-      <ListCard
-        name="William Girard"
-        role="Network Engineer"
-        email="williamg@example.com"
-        location="St. John's, Newfoundland and Labrador"
-        phone="(709)-555-1234"
-        image={require("../assets/users/user-12.jpg")}
-        viewDetails={viewDetails}
-      />,
-      <ListCard
-        name="Ella Beauchamp"
-        role="System Architect"
-        email="ellab@example.com"
-        location="Victoria, British Columbia"
-        phone="(250)-555-0189"
-        image={require("../assets/users/user-13.jpg")}
-        viewDetails={viewDetails}
-      />,
-      <ListCard
-        name="Benjamin Gauthier"
-        role="Project Manager"
-        email="benjaming@example.com"
-        location="Regina, Saskatchewan"
-        phone="(306)-555-0412"
-        image={require("../assets/users/user-14.jpg")}
-        viewDetails={viewDetails}
-      />,
-      <ListCard
-        name="Olivia Bernard"
-        role="Mobile Developer"
-        email="oliviab@example.com"
-        location="Charlottetown, Prince Edward Island"
-        phone="(902)-555-0982"
-        image={require("../assets/users/user-15.jpg")}
-        viewDetails={viewDetails}
-      />,
-      <ListCard
-        name="Leo Lavoie"
-        role="AI Specialist"
-        email="leol@example.com"
-        location="Fredericton, New Brunswick"
-        phone="(506)-555-0298"
-        image={require("../assets/users/user-16.jpg")}
-        viewDetails={viewDetails}
-      />,
-      <ListCard
-        name="Isabelle Poirier"
-        role="SEO Expert"
-        email="isabellep@example.com"
-        location="Yellowknife, Northwest Territories"
-        phone="(867)-555-0345"
-        image={require("../assets/users/user-17.jpg")}
-        viewDetails={viewDetails}
-      />,
-    ];
+    const userImages = {
+      1: require("../assets/users/user-1.jpg"),
+      2: require("../assets/users/user-2.jpg"),
+      3: require("../assets/users/user-3.jpg"),
+      4: require("../assets/users/user-4.jpg"),
+      5: require("../assets/users/user-5.jpg"),
+      6: require("../assets/users/user-6.jpg"),
+      7: require("../assets/users/user-7.jpg"),
+      8: require("../assets/users/user-8.jpg"),
+      9: require("../assets/users/user-9.jpg"),
+      10: require("../assets/users/user-10.jpg"),
+      11: require("../assets/users/user-11.jpg"),
+      12: require("../assets/users/user-12.jpg"),
+      13: require("../assets/users/user-13.jpg"),
+      14: require("../assets/users/user-14.jpg"),
+      15: require("../assets/users/user-15.jpg"),
+      16: require("../assets/users/user-16.jpg"),
+      17: require("../assets/users/user-17.jpg"),
+    };
+    const listData = [];
+
+    const UserGenerator = new Faker({ locale: [en_CA, fr_CA, en, base] });
+
+    for (let i = 0; i < 17; i++) {
+      // UserGenerator.seed(i * 100);
+      const name = UserGenerator.person.fullName();
+      const role = UserGenerator.person.jobTitle();
+      const email = UserGenerator.internet.email();
+      const location =
+        UserGenerator.location.city() + ", " + UserGenerator.location.state();
+      const phone = UserGenerator.phone.number();
+      const description = UserGenerator.person.bio();
+      const company = UserGenerator.company.name();
+      const image = userImages[i + 1];
+
+      listData.push(
+        <ListCard
+          key={i}
+          name={name}
+          role={role}
+          email={email}
+          location={location}
+          phone={phone}
+          description={description}
+          company={company}
+          image={image}
+          viewDetails={viewDetails}
+        />
+      );
+    }
 
     setlistFlatListData(listData);
   }, []);
@@ -208,7 +105,17 @@ export default function ListScreen({ route, navigation }) {
   );
 }
 
-function ListCard({ viewDetails, name, role, email, location, phone, image }) {
+function ListCard({
+  viewDetails,
+  name,
+  role,
+  email,
+  location,
+  phone,
+  description,
+  company,
+  image,
+}) {
   return (
     <Pressable
       onPress={() => {
@@ -218,6 +125,8 @@ function ListCard({ viewDetails, name, role, email, location, phone, image }) {
           email: email,
           location: location,
           phone: phone,
+          description: description,
+          company: company,
           image: image,
         });
       }}
@@ -272,7 +181,7 @@ const cardStyles = StyleSheet.create({
   },
   container: {
     borderRadius: 10,
-    backgroundColor: "#1f2269",
+    backgroundColor: "#26273F",
     flexDirection: "row",
     justifyContent: "space-between",
     paddingHorizontal: 10,
@@ -321,7 +230,7 @@ const styles = StyleSheet.create({
     left: 0,
     justifyContent: "space-between",
     alignItems: "flex-start",
-    backgroundColor: "#190840",
+    backgroundColor: "#26273F",
     paddingHorizontal: 15,
     paddingVertical: 15,
     marginBottom: 15,
@@ -359,7 +268,6 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     paddingVertical: 15,
     maxHeight: "70%",
-    backgroundColor: "#190840",
   },
   container: {
     flex: 1,
